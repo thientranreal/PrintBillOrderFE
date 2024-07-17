@@ -8,11 +8,14 @@ import {
 } from "@mui/material";
 import PasswordField from "./PasswordField";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchLoginRequest } from "../actions";
 
 const LoginForm = () => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch()
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -31,6 +34,7 @@ const LoginForm = () => {
 
     if (!error) {
       // FETCH API
+      dispatch(fetchLoginRequest({ email, password }));
 
     }
   };
