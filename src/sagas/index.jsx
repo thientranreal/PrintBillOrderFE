@@ -4,6 +4,7 @@ import { FETCH_DATA_LOGIN_REQUEST } from '../actions/types';
 import { fetchLoginSuccess, fetchLoginFailure } from '../actions';
 import axiosInstance from '../api/axiosInstance';
 import { toast } from 'react-toastify';
+import history from '../history';
 
 
 function* fechLoginSaga(action) {
@@ -15,6 +16,8 @@ function* fechLoginSaga(action) {
         } else {
             yield put(fetchLoginSuccess(response.data));
             toast.success(response.data.message);
+            // history.push('/dashboard');  // Redirect to the dashboard page
+
         }
 
     } catch (error) {
