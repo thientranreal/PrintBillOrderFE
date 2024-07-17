@@ -10,14 +10,17 @@ import PasswordField from "./PasswordField";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchLoginRequest } from "../actions";
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginForm = () => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch()
+  const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email) {
@@ -35,7 +38,6 @@ const LoginForm = () => {
     if (!error) {
       // FETCH API
       dispatch(fetchLoginRequest({ email, password }));
-
     }
   };
 

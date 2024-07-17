@@ -15,9 +15,8 @@ function* fechLoginSaga(action) {
             toast.error(response.data.message);  // Show error toast
         } else {
             yield put(fetchLoginSuccess(response.data));
+            localStorage.setItem('token', response.data.data[0].token);
             toast.success(response.data.message);
-            // history.push('/dashboard');  // Redirect to the dashboard page
-
         }
 
     } catch (error) {
