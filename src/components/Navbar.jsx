@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import AdbIcon from "@mui/icons-material/Adb";
 import Drawer from "@mui/material/Drawer";
-import SidebarMobile from "./SidebarMobile";
+import Sidebar from "./Sidebar";
 import { useState } from "react";
 
 function Navbar() {
@@ -63,11 +63,11 @@ function Navbar() {
             {/* Sidebar */}
             <Drawer open={openSidebar} onClose={toggleDrawer(false)}>
               <Box
-                sx={{ width: "17rem" }}
+                sx={{ width: "15rem" }}
                 role="presentation"
                 onClick={toggleDrawer(false)}
               >
-                <SidebarMobile />
+                <Sidebar />
               </Box>
             </Drawer>
             {/* End Sidebar */}
