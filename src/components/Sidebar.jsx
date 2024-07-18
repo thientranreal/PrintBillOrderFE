@@ -14,12 +14,14 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logoutRequest } from "../actions";
 
 const Sidebar = () => {
   const [openReport, setOpenReport] = useState(false);
   const [openTransport, setOpenTransport] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
-
+  const dispatch = useDispatch();
   return (
     <List onClick={(e) => e.stopPropagation()}>
       <Divider sx={{ mt: "5rem", display: { xs: "block", md: "none" } }} />
@@ -84,7 +86,7 @@ const Sidebar = () => {
         </List>
       </Collapse>
 
-      <ListItemButton>
+      <ListItemButton onClick={(e) => dispatch(logoutRequest(e))}>
         <ListItemIcon>
           <LogoutIcon />
         </ListItemIcon>
