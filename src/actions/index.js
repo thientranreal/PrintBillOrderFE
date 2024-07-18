@@ -1,5 +1,5 @@
 // src/actions/index.js
-import { FETCH_DATA_LOGIN_REQUEST, FETCH_DATA_LOGIN_SUCCESS, FETCH_DATA_LOGIN_FAILURE, FETCH_DATA_LOGOUT_REQUEST, FETCH_DATA_LOGOUT_SUCCESS, FETCH_DATA_LOGOUT_FAILURE } from './types';
+import { FETCH_DATA_LOGIN_REQUEST, FETCH_DATA_LOGIN_SUCCESS, FETCH_DATA_LOGIN_FAILURE, FETCH_DATA_LOGOUT_REQUEST, FETCH_DATA_LOGOUT_SUCCESS, FETCH_DATA_LOGOUT_FAILURE, FETCH_DATA_PROFILE_REQUEST } from './types';
 
 
 
@@ -30,3 +30,15 @@ export const logoutFailure = (error) => ({
     type: FETCH_DATA_LOGOUT_FAILURE,
     payload: error,
 });
+
+export const fectProfileRequest = () => ({
+    type: FETCH_DATA_PROFILE_REQUEST
+})
+export const fectProfileSuccess = (data) => ({
+    type: FETCH_DATA_PROFILE_REQUEST,
+    payload: data
+})
+export const fectProfileFailure = (error) => ({
+    type: FETCH_DATA_PROFILE_REQUEST,
+    payload: error
+})

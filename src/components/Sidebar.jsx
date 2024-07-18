@@ -14,14 +14,20 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { logoutRequest } from "../actions";
+import { useDispatch, useSelector } from "react-redux";
+import { fectProfileRequest, logoutRequest } from "../actions";
+import React, { useEffect } from 'react';
 
 const Sidebar = () => {
   const [openReport, setOpenReport] = useState(false);
   const [openTransport, setOpenTransport] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
   const dispatch = useDispatch();
+  const profile = useSelector(state => state.data); // Thay đổi 'profile' nếu cần
+  console.log('profile', profile);
+  useEffect(() => {
+    dispatch(fectProfileRequest());
+  }, []);
   return (
     <List onClick={(e) => e.stopPropagation()}>
       <Divider sx={{ mt: "5rem", display: { xs: "block", md: "none" } }} />

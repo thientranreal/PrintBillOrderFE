@@ -1,11 +1,12 @@
 // src/sagas/index.js
-import { takeEvery, call, put, takeLatest } from 'redux-saga/effects';
-import { FETCH_DATA_LOGIN_REQUEST, FETCH_DATA_LOGOUT_REQUEST } from '../actions/types';
-import { fetchLoginSuccess, fetchLoginFailure, logoutSuccess, logoutFailure } from '../actions';
+import { takeEvery, call, put, takeLatest, take, fork } from 'redux-saga/effects';
+import { FETCH_DATA_LOGIN_REQUEST, FETCH_DATA_LOGOUT_REQUEST, FETCH_DATA_PROFILE_REQUEST } from '../actions/types';
+import { fetchLoginSuccess, fetchLoginFailure, logoutSuccess, logoutFailure, fectProfileSuccess } from '../actions';
 import axiosInstance from '../api/axiosInstance';
 import { toast } from 'react-toastify';
 import history from '../history';
 
+import { all } from 'redux-saga/effects';
 
 function* fechLoginSaga(action) {
     try {
@@ -42,14 +43,34 @@ function* logoutSaga() {
         yield put(logoutFailure(error.message));
     }
 }
+function* fetchProfileSaga() {
+    try {
+        const response = yield call(axiosInstance.get, '/users/profile', {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        // console.log('responose', response);
+        // Show success toast
+        if (response.status !== 200) {
+            toast.error(response.data.message);  // Show error toast
+        } else {
+            yield put(fectProfileSuccess(response.data));
+            toast.success(response.data.message);
+        }
+    } catch (error) {
+        yield put(fetchLoginFailure(error.message));
 
+    }
+}
 function* watchFetchData() {
     // watch login
     yield takeEvery(FETCH_DATA_LOGIN_REQUEST, fechLoginSaga);
     yield takeLatest(FETCH_DATA_LOGOUT_REQUEST, logoutSaga);
+    yield takeLatest(FETCH_DATA_PROFILE_REQUEST, fetchProfileSaga);
 
 }
 
 export default function* rootSaga() {
-    yield watchFetchData();
+    yield all([watchFetchData()]);
 }
