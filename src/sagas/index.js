@@ -8,6 +8,7 @@ import history from '../history';
 
 import { all } from 'redux-saga/effects';
 
+// hàm này lấy api
 function* fechLoginSaga(action) {
     try {
         const response = yield call(axiosInstance.post, '/users/login', action.payload);
@@ -16,6 +17,7 @@ function* fechLoginSaga(action) {
             toast.error(response.data.message);  // Show error toast
         } else {
             yield put(fetchLoginSuccess(response.data));
+
             localStorage.setItem('token', response.data.data[0].token);
             toast.success(response.data.message);
             window.parent.location.href = '/dashboard'
@@ -25,9 +27,9 @@ function* fechLoginSaga(action) {
         yield put(fetchLoginFailure(error.message));
         toast.error('Login failed: ' + error.message);  // Show error toast
 
-
     }
 }
+// hàm lấy api
 function* logoutSaga() {
     try {
         // Perform the logout API call
@@ -43,6 +45,7 @@ function* logoutSaga() {
         yield put(logoutFailure(error.message));
     }
 }
+// hàm api
 function* fetchProfileSaga() {
     try {
         const response = yield call(axiosInstance.get, '/users/profile', {
@@ -56,13 +59,15 @@ function* fetchProfileSaga() {
             toast.error(response.data.message);  // Show error toast
         } else {
             yield put(fectProfileSuccess(response.data));
-            toast.success(response.data.message);
+            // toast.success(response.data.message);
         }
     } catch (error) {
         yield put(fetchLoginFailure(error.message));
 
     }
 }
+
+
 function* watchFetchData() {
     // watch login
     yield takeEvery(FETCH_DATA_LOGIN_REQUEST, fechLoginSaga);
@@ -70,6 +75,7 @@ function* watchFetchData() {
     yield takeLatest(FETCH_DATA_PROFILE_REQUEST, fetchProfileSaga);
 
 }
+
 
 export default function* rootSaga() {
     yield all([watchFetchData()]);

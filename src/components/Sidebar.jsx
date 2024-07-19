@@ -23,12 +23,14 @@ const Sidebar = () => {
   const [openTransport, setOpenTransport] = useState(false);
   const [openSetting, setOpenSetting] = useState(false);
   const dispatch = useDispatch();
-  const profile = useSelector(state => state.data); // Thay đổi 'profile' nếu cần
-  console.log('profile', profile);
+  // Thay đổi 'profile' nếu cần
   useEffect(() => {
     dispatch(fectProfileRequest());
   }, []);
+  const profile = useSelector(state => state.data);
+  console.log('profile', profile);
   return (
+
     <List onClick={(e) => e.stopPropagation()}>
       <Divider sx={{ mt: "5rem", display: { xs: "block", md: "none" } }} />
       <ListItemButton>
