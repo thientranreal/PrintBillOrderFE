@@ -2,8 +2,19 @@
 import { Box, Paper } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import { useDispatch, useSelector } from "react-redux";
+import { fectProfileRequest } from "../actions";
+import { useEffect } from "react";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  // Thay đổi 'profile' nếu cần
+  useEffect(() => {
+    dispatch(fectProfileRequest());
+  }, []);
+  const profile = useSelector((state) => state.data);
+  console.log("profile", profile);
+
   return (
     <Box>
       <Navbar />

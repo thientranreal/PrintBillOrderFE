@@ -1,7 +1,7 @@
 // src/reducers/index.js
-import { combineReducers } from 'redux';
-import dataReducer from './dataReducer';
+import { combineReducers } from "redux";
+import dataReducer from "./dataReducer";
 
 export default combineReducers({
-    data: dataReducer,
+  data: dataReducer,
 });
