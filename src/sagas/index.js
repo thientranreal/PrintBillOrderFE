@@ -91,14 +91,17 @@ function* registerSaga(action) {
     // Show success toast
     if (response.status !== 200) {
       yield put(registerFailure(response.data.message));
+      console.log('data', response.data);
       toast.error(response.data.message); // Show error toast
     } else {
+      console.log('sres', response.data);
       yield put(registerSuccess(response.data));
       toast.success(response.data.message);
 
       history.push("/dashboard");
     }
   } catch (error) {
+    console.log(error);
     yield put(registerFailure(error.message));
     toast.error(error.message); // Show error toast
   }
