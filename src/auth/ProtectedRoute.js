@@ -1,10 +1,9 @@
-// ProtectedRoute.js
 import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { isLoggedIn } from './auth'; // Adjust the path as needed
+import isLoggedIn from './auth';
+import { history } from "../history";
 
 const ProtectedRoute = ({ children }) => {
-    return isLoggedIn() ? children : <Navigate to="/login" />;
+    return isLoggedIn() ? children : window.parent.location.href = '/login';
 };
 
 export default ProtectedRoute;

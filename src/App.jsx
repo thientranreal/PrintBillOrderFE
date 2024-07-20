@@ -8,14 +8,14 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./pages/Dashboard";
 import { history } from "./history";
-// import ProtectedRoute from './auth/ProtectedRoute';
+import ProtectedRoute from './auth/ProtectedRoute';
 
 function App() {
   return (
     <HistoryRouter history={history}>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       </Routes>
       <ToastContainer />
     </HistoryRouter>
