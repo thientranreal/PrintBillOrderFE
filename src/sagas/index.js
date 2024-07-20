@@ -1,12 +1,5 @@
 // src/sagas/index.js
-import {
-  takeEvery,
-  call,
-  put,
-  takeLatest,
-  take,
-  fork,
-} from "redux-saga/effects";
+import { takeEvery, call, put, takeLatest } from "redux-saga/effects";
 import {
   FETCH_DATA_LOGIN_REQUEST,
   FETCH_DATA_LOGOUT_REQUEST,
@@ -35,17 +28,17 @@ function* fechLoginSaga(action) {
     );
     // Show success toast
     if (response.status !== 200) {
+      yield put(fetchLoginFailure(response.data.message));
       toast.error(response.data.message); // Show error toast
     } else {
       yield put(fetchLoginSuccess(response.data));
-
       localStorage.setItem("token", response.data.data[0].token);
       toast.success(response.data.message);
       history.push("/dashboard");
     }
   } catch (error) {
     yield put(fetchLoginFailure(error.message));
-    toast.error("Login failed: " + error.message); // Show error toast
+    toast.error(error.message); // Show error toast
   }
 }
 // hàm lấy api
