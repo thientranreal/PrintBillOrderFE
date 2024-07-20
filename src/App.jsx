@@ -3,9 +3,9 @@ import LoginPage from "./pages/LoginPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Dashboard from "./pages/Dashboard";
+import { history } from "./history";
 // import ProtectedRoute from './auth/ProtectedRoute';
 
-import history from "./history";
 function App() {
   return (
     <Router history={history}>

@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Checkbox,
   FormControlLabel,
   TextField,
@@ -8,17 +7,17 @@ import {
 } from "@mui/material";
 import PasswordField from "./PasswordField";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchLoginRequest } from "../actions";
-import { useNavigate } from 'react-router-dom';
-
+import { validateEmail } from "../utils/validators";
+import { LoadingButton } from "@mui/lab";
 
 const LoginForm = () => {
   const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const dispatch = useDispatch()
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.data.loading);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -28,13 +27,22 @@ const LoginForm = () => {
         type: "email",
         info: "Vui lòng nhập email",
       });
-    } else if (!password) {
+      return;
+    }
+    if (!validateEmail(email)) {
+      setError({
+        type: "email",
+        info: "Địa chỉ email không hợp lệ",
+      });
+      return;
+    }
+    if (!password) {
       setError({
         type: "password",
         info: "Vui lòng nhập mật khẩu",
       });
+      return;
     }
-
     if (!error) {
       // FETCH API
       dispatch(fetchLoginRequest({ email, password }));
@@ -116,9 +124,24 @@ const LoginForm = () => {
             }}
           />
           <FormControlLabel control={<Checkbox />} label="Nhớ mật khẩu" />
-          <Button fullWidth variant="contained" onClick={handleLogin}>
+          <LoadingButton
+            loadingPosition="start"
+            variant="contained"
+            onClick={handleLogin}
+            loading={isLoading}
+          >
             Đăng nhập
-          </Button>
+          </LoadingButton>
+          <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+            Bạn đã chưa có tài khoản?{" "}
+            <Typography
+              component="span"
+              color="primary"
+              sx={{ textDecoration: "underline", fontWeight: 600 }}
+            >
+              Đăng ký
+            </Typography>
+          </Typography>
         </Box>
       </Box>
     </Box>
