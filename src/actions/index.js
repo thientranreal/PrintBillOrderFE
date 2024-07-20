@@ -15,15 +15,15 @@ import {
 } from "./types";
 
 // BUILD ACTION LOGIN SAGA
-export const fetchLoginRequest = (credentials) => ({
+export const loginRequest = (credentials) => ({
   type: FETCH_DATA_LOGIN_REQUEST,
   payload: credentials,
 });
-export const fetchLoginSuccess = (data) => ({
+export const loginSuccess = (data) => ({
   type: FETCH_DATA_LOGIN_SUCCESS,
   payload: data,
 });
-export const fetchLoginFailure = (error) => ({
+export const loginFailure = (error) => ({
   type: FETCH_DATA_LOGIN_FAILURE,
   payload: error,
 });
@@ -54,14 +54,14 @@ export const registerFailure = (error) => ({
 });
 
 // FETCH PROFILE
-export const fectProfileRequest = () => ({
+export const profileRequest = () => ({
   type: FETCH_DATA_PROFILE_REQUEST,
 });
-export const fectProfileSuccess = (data) => ({
+export const profileSuccess = (data) => ({
   type: FETCH_DATA_PROFILE_SUCCESS,
   payload: data,
 });
-export const fectProfileFailure = (error) => ({
+export const profileFailure = (error) => ({
   type: FETCH_DATA_PROFILE_FAILURE,
   payload: error,
 });

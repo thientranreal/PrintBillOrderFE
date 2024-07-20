@@ -8,7 +8,7 @@ import {
 import PasswordField from "./PasswordField";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLoginRequest } from "../actions";
+import { loginRequest } from "../actions";
 import { validateEmail } from "../utils/validators";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
@@ -35,7 +35,7 @@ const LoginForm = () => {
     }
     if (Object.keys(checkErrors).length === 0) {
       // FETCH API
-      dispatch(fetchLoginRequest({ email, password }));
+      dispatch(loginRequest({ email, password }));
     } else {
       setErrors(checkErrors);
     }

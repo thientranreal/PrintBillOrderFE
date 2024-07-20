@@ -38,6 +38,8 @@ const RegisterPage = () => {
 
     if (!password) {
       checkErrors.password = "Vui lòng nhập mật khẩu";
+    } else if (password.length < 5) {
+      checkErrors.password = "Mật khẩu phải tối thiểu 5 ký tự";
     }
 
     if (password !== confirmedPassword) {
