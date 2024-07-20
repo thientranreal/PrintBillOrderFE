@@ -5,6 +5,7 @@ import { LoadingButton } from "@mui/lab";
 import { useDispatch, useSelector } from "react-redux";
 import SendIcon from "@mui/icons-material/Send";
 import { validatePhoneNumber, validateEmail } from "../utils/validators";
+import { registerRequest } from "../actions";
 
 const RegisterPage = () => {
   // State
@@ -44,7 +45,8 @@ const RegisterPage = () => {
     }
 
     if (Object.keys(checkErrors).length === 0) {
-      // Fetch API
+      const info = { shopName, phone, email, password, confirmedPassword };
+      dispatch(registerRequest(info));
     } else {
       setErrors(checkErrors);
     }

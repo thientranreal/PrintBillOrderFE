@@ -4,6 +4,7 @@ import {
   FETCH_DATA_LOGIN_REQUEST,
   FETCH_DATA_LOGOUT_REQUEST,
   FETCH_DATA_PROFILE_REQUEST,
+  FETCH_DATA_REGISTER_REQUEST,
 } from "../actions/types";
 import {
   fetchLoginSuccess,
@@ -11,6 +12,8 @@ import {
   logoutSuccess,
   logoutFailure,
   fectProfileSuccess,
+  registerFailure,
+  registerSuccess,
 } from "../actions";
 import axiosInstance from "../api/axiosInstance";
 import { toast } from "react-toastify";
@@ -78,10 +81,37 @@ function* fetchProfileSaga() {
   }
 }
 
+function* registerSaga(action) {
+  try {
+    const response = yield call(
+      axiosInstance.post,
+      "/users/register",
+      action.payload
+    );
+    // Show success toast
+    if (response.status !== 200) {
+      yield put(registerFailure(response.data.message));
+      toast.error(response.data.message); // Show error toast
+    } else {
+      yield put(registerSuccess(response.data));
+      toast.success(response.data.message);
+
+      history.push("/dashboard");
+    }
+  } catch (error) {
+    yield put(registerFailure(error.message));
+    toast.error(error.message); // Show error toast
+  }
+}
+
 function* watchFetchData() {
   // watch login
   yield takeEvery(FETCH_DATA_LOGIN_REQUEST, fechLoginSaga);
+  // watch register
+  yield takeEvery(FETCH_DATA_REGISTER_REQUEST, registerSaga);
+  // watch logout
   yield takeLatest(FETCH_DATA_LOGOUT_REQUEST, logoutSaga);
+  // watch fetch profile
   yield takeLatest(FETCH_DATA_PROFILE_REQUEST, fetchProfileSaga);
 }
 
