@@ -11,9 +11,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchLoginRequest } from "../actions";
 import { validateEmail } from "../utils/validators";
 import { LoadingButton } from "@mui/lab";
+import { Link } from "react-router-dom";
+import SendIcon from "@mui/icons-material/Send";
 
 const LoginForm = () => {
-  const [error, setError] = useState(null);
+  const [errors, setErrors] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -22,30 +24,20 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    const checkErrors = {};
     if (!email) {
-      setError({
-        type: "email",
-        info: "Vui lòng nhập email",
-      });
-      return;
-    }
-    if (!validateEmail(email)) {
-      setError({
-        type: "email",
-        info: "Địa chỉ email không hợp lệ",
-      });
-      return;
+      checkErrors.email = "Vui lòng nhập email";
+    } else if (!validateEmail(email)) {
+      checkErrors.email = "Email không hợp lệ";
     }
     if (!password) {
-      setError({
-        type: "password",
-        info: "Vui lòng nhập mật khẩu",
-      });
-      return;
+      checkErrors.password = "Vui lòng nhập mật khẩu";
     }
-    if (!error) {
+    if (Object.keys(checkErrors).length === 0) {
       // FETCH API
       dispatch(fetchLoginRequest({ email, password }));
+    } else {
+      setErrors(checkErrors);
     }
   };
 
@@ -99,32 +91,33 @@ const LoginForm = () => {
             id="email"
             label="Email"
             variant="standard"
-            error={error && error.type === "email"}
-            helperText={error && error.type === "email" ? error.info : ""}
+            error={errors.email}
+            helperText={errors.email}
             fullWidth
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              if (error && error.type === "email") {
-                setError(null);
+              if (errors.email) {
+                setErrors({ ...errors, email: "" });
               }
             }}
           />
           <PasswordField
             id="password"
             label="Mật khẩu"
-            error={error && error.type === "password"}
-            helperText={error && error.type === "password" ? error.info : ""}
+            error={errors.password}
+            helperText={errors.password}
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
-              if (error && error.type === "password") {
-                setError(null);
+              if (errors.password) {
+                setErrors({ ...errors, password: "" });
               }
             }}
           />
           <FormControlLabel control={<Checkbox />} label="Nhớ mật khẩu" />
           <LoadingButton
+            startIcon={<SendIcon />}
             loadingPosition="start"
             variant="contained"
             onClick={handleLogin}
@@ -134,13 +127,19 @@ const LoginForm = () => {
           </LoadingButton>
           <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
             Bạn đã chưa có tài khoản?{" "}
-            <Typography
-              component="span"
-              color="primary"
-              sx={{ textDecoration: "underline", fontWeight: 600 }}
-            >
-              Đăng ký
-            </Typography>
+            <Link to="/register">
+              <Typography
+                component="span"
+                color="primary"
+                sx={{
+                  textDecoration: "underline",
+                  fontWeight: 600,
+                  cursor: "pointer",
+                }}
+              >
+                Đăng ký
+              </Typography>
+            </Link>
           </Typography>
         </Box>
       </Box>
