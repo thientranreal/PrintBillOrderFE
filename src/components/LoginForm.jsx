@@ -91,7 +91,7 @@ const LoginForm = () => {
             id="email"
             label="Email"
             variant="standard"
-            error={errors.email}
+            error={!!errors.email}
             helperText={errors.email}
             fullWidth
             value={email}
@@ -105,7 +105,7 @@ const LoginForm = () => {
           <PasswordField
             id="password"
             label="Mật khẩu"
-            error={errors.password}
+            error={!!errors.password}
             helperText={errors.password}
             value={password}
             onChange={(e) => {

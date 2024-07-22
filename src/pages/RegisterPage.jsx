@@ -76,7 +76,7 @@ const RegisterPage = () => {
           id="shop-name"
           label="Tên shop"
           variant="standard"
-          error={errors.shopName}
+          error={!!errors.shopName}
           helperText={errors.shopName}
           fullWidth
           value={shopName}
@@ -94,7 +94,7 @@ const RegisterPage = () => {
           id="phone"
           label="Số điện thoại"
           variant="standard"
-          error={errors.phone}
+          error={!!errors.phone}
           helperText={errors.phone}
           fullWidth
           value={phone}
@@ -112,7 +112,7 @@ const RegisterPage = () => {
           id="email"
           label="Email"
           variant="standard"
-          error={errors.email}
+          error={!!errors.email}
           helperText={errors.email}
           fullWidth
           value={email}
@@ -129,7 +129,7 @@ const RegisterPage = () => {
         <PasswordField
           id="password"
           label="Mật khẩu"
-          error={errors.password}
+          error={!!errors.password}
           helperText={errors.password}
           value={password}
           onChange={(e) => {
@@ -145,7 +145,7 @@ const RegisterPage = () => {
         <PasswordField
           id="confirmed-password"
           label="Nhập lại mật khẩu"
-          error={errors.confirmedPassword}
+          error={!!errors.confirmedPassword}
           helperText={errors.confirmedPassword}
           value={confirmedPassword}
           onChange={(e) => {

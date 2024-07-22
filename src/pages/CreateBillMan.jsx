@@ -6,7 +6,7 @@ const CreateBillMan = () => {
 
   useEffect(() => {
     // Establish WebSocket connection
-    const ws = new WebSocket("ws://localhost:3000/api/users/tiktokLive");
+    const ws = new WebSocket("ws://localhost:8080");
 
     // Define event listeners
     ws.onopen = () => {
