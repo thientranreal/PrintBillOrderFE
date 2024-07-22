@@ -1,0 +1,46 @@
+import { LoadingButton } from "@mui/lab";
+import { Avatar, Box, Stack, Typography } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import PropTypes from "prop-types";
+
+const BillItem = ({ avatarUrl, userName, billDetails }) => {
+  return (
+    <Box display="flex" p={2}>
+      <Avatar alt="User" src={avatarUrl} sx={{ width: 50, height: 50 }} />
+      <Box ml={3}>
+        <Typography variant="subtitle1">{userName}</Typography>
+        <Typography variant="subtitle2" sx={{ opacity: "70%" }}>
+          {billDetails}
+        </Typography>
+        <Stack direction={{ xs: "column", md: "row" }} spacing={1} mt={1}>
+          <LoadingButton
+            loading={false}
+            loadingPosition="start"
+            startIcon={<InsertDriveFileIcon />}
+            variant="contained"
+          >
+            Tạo đơn
+          </LoadingButton>
+          <LoadingButton
+            loading={false}
+            loadingPosition="start"
+            startIcon={<InfoIcon />}
+            variant="contained"
+            color="secondary"
+          >
+            Thông tin
+          </LoadingButton>
+        </Stack>
+      </Box>
+    </Box>
+  );
+};
+
+BillItem.propTypes = {
+  avatarUrl: PropTypes.string.isRequired,
+  userName: PropTypes.string.isRequired,
+  billDetails: PropTypes.string,
+};
+
+export default BillItem;

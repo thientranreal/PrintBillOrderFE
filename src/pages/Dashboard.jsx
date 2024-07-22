@@ -5,6 +5,8 @@ import Sidebar from "../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { profileRequest } from "../actions";
 import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import CreateBillMan from "./CreateBillMan";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -18,16 +20,25 @@ const Dashboard = () => {
   return (
     <Box>
       <Navbar />
-      <Paper
-        elevation={3}
-        sx={{
-          height: "100vh",
-          width: "15rem",
-          display: { xs: "none", md: "block" },
-        }}
-      >
-        <Sidebar />
-      </Paper>
+
+      <Box display="flex">
+        {/* Side bar */}
+        <Paper
+          elevation={3}
+          sx={{
+            height: "100vh",
+            width: "15rem",
+            display: { xs: "none", md: "block" },
+          }}
+        >
+          <Sidebar />
+        </Paper>
+        {/* End side bar */}
+
+        <Routes>
+          <Route path="/manualBill" element={<CreateBillMan />} />
+        </Routes>
+      </Box>
     </Box>
   );
 };
