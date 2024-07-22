@@ -12,6 +12,8 @@ import {
   FETCH_DATA_REGISTER_SUCCESS,
   FETCH_DATA_REGISTER_FAILURE,
   FETCH_DATA_REGISTER_REQUEST,
+  SHOW_LOADING,
+  HIDE_LOADING
 } from "../actions/types";
 
 const initialState = {
@@ -23,6 +25,10 @@ const initialState = {
 const dataReducer = (state = initialState, action) => {
   switch (action.type) {
     // fetch login................
+    case SHOW_LOADING:
+      return { ...state, loading: true };
+    case HIDE_LOADING:
+      return { ...state, loading: false };
     case FETCH_DATA_LOGIN_REQUEST:
     case FETCH_DATA_LOGOUT_REQUEST:
     case FETCH_DATA_PROFILE_REQUEST:
