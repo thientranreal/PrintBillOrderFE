@@ -53,7 +53,7 @@ const Sidebar = () => {
       <Divider sx={{ mt: "5rem", display: { xs: "block", md: "none" } }} />
 
       <ListItemButtonStyled
-        active={activeTab === "createBill"}
+        active={(activeTab === "createBill").toString()}
         onClick={() => {
           setOpenCreateBill(!openCreateBill);
           handleTabClick("createBill");
@@ -70,7 +70,7 @@ const Sidebar = () => {
       <Collapse in={openCreateBill} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <NestedListItemButtonStyled
-            active={activeSubTab === "autoBill"}
+            active={(activeSubTab === "autoBill").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("autoBill");
@@ -79,7 +79,7 @@ const Sidebar = () => {
             <ListItemText primary="Tạo đơn tự động" />
           </NestedListItemButtonStyled>
           <NestedListItemButtonStyled
-            active={activeSubTab === "manualBill"}
+            active={(activeSubTab === "manualBill").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("manualBill");
@@ -91,7 +91,7 @@ const Sidebar = () => {
       </Collapse>
 
       <ListItemButtonStyled
-        active={activeTab === "report"}
+        active={(activeTab === "report").toString()}
         onClick={() => {
           setOpenReport(!openReport);
           handleTabClick("report");
@@ -106,7 +106,7 @@ const Sidebar = () => {
       <Collapse in={openReport} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <NestedListItemButtonStyled
-            active={activeSubTab === "overall"}
+            active={(activeSubTab === "overall").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("overall");
@@ -118,7 +118,7 @@ const Sidebar = () => {
       </Collapse>
 
       <ListItemButtonStyled
-        active={activeTab === "transport"}
+        active={(activeTab === "transport").toString()}
         onClick={() => {
           setOpenTransport(!openTransport);
           handleTabClick("transport");
@@ -135,7 +135,7 @@ const Sidebar = () => {
       <Collapse in={openTransport} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <NestedListItemButtonStyled
-            active={activeSubTab === "transport"}
+            active={(activeSubTab === "transport").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("transport");
@@ -145,7 +145,7 @@ const Sidebar = () => {
           </NestedListItemButtonStyled>
 
           <NestedListItemButtonStyled
-            active={activeSubTab === "billUpload"}
+            active={(activeSubTab === "billUpload").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("billUpload");
@@ -155,7 +155,7 @@ const Sidebar = () => {
           </NestedListItemButtonStyled>
 
           <NestedListItemButtonStyled
-            active={activeSubTab === "forControl"}
+            active={(activeSubTab === "forControl").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("forControl");
@@ -167,7 +167,7 @@ const Sidebar = () => {
       </Collapse>
 
       <ListItemButtonStyled
-        active={activeTab === "settings"}
+        active={(activeTab === "settings").toString()}
         onClick={() => {
           setOpenSetting(!openSetting);
           handleTabClick("settings");
@@ -182,7 +182,7 @@ const Sidebar = () => {
       <Collapse in={openSetting} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <NestedListItemButtonStyled
-            active={activeSubTab === "account"}
+            active={(activeSubTab === "account").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("account");
@@ -192,7 +192,7 @@ const Sidebar = () => {
           </NestedListItemButtonStyled>
 
           <NestedListItemButtonStyled
-            active={activeSubTab === "storage"}
+            active={(activeSubTab === "storage").toString()}
             onClick={(e) => {
               e.stopPropagation();
               handleSubTabClick("storage");
@@ -204,7 +204,7 @@ const Sidebar = () => {
       </Collapse>
 
       <ListItemButtonStyled
-        active={activeTab === "logout"}
+        active={(activeTab === "logout").toString()}
         onClick={(e) => {
           handleTabClick("logout");
           dispatch(logoutRequest(e));
