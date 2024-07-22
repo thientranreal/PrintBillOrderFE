@@ -1,33 +1,43 @@
+import { useEffect, useState } from "react";
 import BillItemList from "../components/BillItemList";
 
-const data = [
-  {
-    id: 1,
-    avatarUrl: "test.com",
-    userName: "test1",
-    billDetails: "info info info",
-  },
-  {
-    id: 2,
-    avatarUrl: "test.com",
-    userName: "test1",
-    billDetails: "info info info",
-  },
-  {
-    id: 3,
-    avatarUrl: "test.com",
-    userName: "test1",
-    billDetails: "info info info",
-  },
-  {
-    id: 4,
-    avatarUrl: "test.com",
-    userName: "test1",
-    billDetails: "info info info",
-  },
-];
-
 const CreateBillMan = () => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    // Establish WebSocket connection
+    const ws = new WebSocket("ws://localhost:3000/api/users/tiktokLive");
+
+    // Define event listeners
+    ws.onopen = () => {
+      console.log("WebSocket connection established");
+    };
+
+    ws.onmessage = (event) => {
+      const newMessage = JSON.parse(event.data);
+      const newBillData = {
+        id: newMessage.userId,
+        avatarUrl: newMessage.avatarUrl,
+        userName: newMessage.nickname,
+        billDetails: newMessage.message,
+      };
+      setData((prevData) => [...prevData, newBillData]);
+    };
+
+    ws.onerror = (error) => {
+      console.error("WebSocket error:", error);
+    };
+
+    ws.onclose = () => {
+      console.log("WebSocket connection closed");
+    };
+
+    // Clean up the WebSocket connection when the component unmounts
+    return () => {
+      ws.close();
+    };
+  }, []);
+
   return (
     <>
       <BillItemList data={data} />
