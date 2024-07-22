@@ -38,9 +38,11 @@ const Dashboard = () => {
           </Paper>
           {/* End side bar */}
 
-          <Routes>
-            <Route path="/manualBill" element={<CreateBillMan />} />
-          </Routes>
+          <Box flexGrow={1} pt={5}>
+            <Routes>
+              <Route path="/manualBill" element={<CreateBillMan />} />
+            </Routes>
+          </Box>
         </Box>
       </Box>
     );

@@ -1,15 +1,20 @@
 import PropTypes from "prop-types";
 import BillItem from "./BillItem";
+import { Divider, Stack } from "@mui/material";
 
 const BillItemList = ({ data }) => {
-  return data.map((item) => (
-    <BillItem
-      key={item.id}
-      avatarUrl={item.avatarUrl}
-      userName={item.userName}
-      billDetails={item.billDetails}
-    />
-  ));
+  return (
+    <Stack spacing={2} divider={<Divider flexItem />}>
+      {data.map((item) => (
+        <BillItem
+          key={item.id}
+          avatarUrl={item.avatarUrl}
+          userName={item.userName}
+          billDetails={item.billDetails}
+        />
+      ))}
+    </Stack>
+  );
 };
 
 BillItemList.propTypes = {

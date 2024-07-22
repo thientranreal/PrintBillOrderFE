@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import BillItemList from "../components/BillItemList";
 
 const data = [
@@ -30,11 +29,9 @@ const data = [
 
 const CreateBillMan = () => {
   return (
-    <Box>
-      <Box>
-        <BillItemList data={data} />
-      </Box>
-    </Box>
+    <>
+      <BillItemList data={data} />
+    </>
   );
 };
 

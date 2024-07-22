@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 
 const BillItem = ({ avatarUrl, userName, billDetails }) => {
   return (
-    <Box display="flex" p={2}>
+    <Stack px={5} pb={2} direction="row" spacing={3}>
       <Avatar alt="User" src={avatarUrl} sx={{ width: 50, height: 50 }} />
-      <Box ml={3}>
+      <Box>
         <Typography variant="subtitle1">{userName}</Typography>
         <Typography variant="subtitle2" sx={{ opacity: "70%" }}>
           {billDetails}
@@ -33,7 +33,7 @@ const BillItem = ({ avatarUrl, userName, billDetails }) => {
           </LoadingButton>
         </Stack>
       </Box>
-    </Box>
+    </Stack>
   );
 };
 
