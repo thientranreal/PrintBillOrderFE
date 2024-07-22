@@ -4,7 +4,8 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { profileRequest } from "../actions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import LinearIndeterminate from "../components/Loading";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -13,23 +14,26 @@ const Dashboard = () => {
     dispatch(profileRequest());
   }, [dispatch]);
   const profile = useSelector((state) => state.data);
-  console.log("profile", profile);
-
-  return (
-    <Box>
-      <Navbar />
-      <Paper
-        elevation={3}
-        sx={{
-          height: "100vh",
-          width: "15rem",
-          display: { xs: "none", md: "block" },
-        }}
-      >
-        <Sidebar />
-      </Paper>
-    </Box>
-  );
+  const loading = useSelector((state) => state.data.loading);
+  if (loading === true) {
+    return (<LinearIndeterminate />)
+  } else {
+    return (
+      <Box>
+        <Navbar />
+        <Paper
+          elevation={3}
+          sx={{
+            height: "100vh",
+            width: "15rem",
+            display: { xs: "none", md: "block" },
+          }}
+        >
+          <Sidebar />
+        </Paper>
+      </Box>
+    );
+  }
 };
 
 export default Dashboard;
