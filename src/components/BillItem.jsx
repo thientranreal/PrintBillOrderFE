@@ -4,14 +4,14 @@ import InfoIcon from "@mui/icons-material/Info";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 import PropTypes from "prop-types";
 
-const BillItem = ({ avatarUrl, userName, billDetails }) => {
+const BillItem = ({ avatarUrl, nickname, message }) => {
   return (
     <Stack px={5} pb={2} direction="row" spacing={3}>
       <Avatar alt="User" src={avatarUrl} sx={{ width: 50, height: 50 }} />
       <Box>
-        <Typography variant="subtitle1">{userName}</Typography>
+        <Typography variant="subtitle1">{nickname}</Typography>
         <Typography variant="subtitle2" sx={{ opacity: "70%" }}>
-          {billDetails}
+          {message}
         </Typography>
         <Stack direction={{ xs: "column", md: "row" }} spacing={1} mt={1}>
           <LoadingButton
@@ -39,8 +39,8 @@ const BillItem = ({ avatarUrl, userName, billDetails }) => {
 
 BillItem.propTypes = {
   avatarUrl: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
-  billDetails: PropTypes.string,
+  nickname: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };
 
 export default BillItem;

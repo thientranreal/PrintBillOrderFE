@@ -13,7 +13,8 @@ import {
   FETCH_DATA_REGISTER_FAILURE,
   FETCH_DATA_REGISTER_REQUEST,
   SHOW_LOADING,
-  HIDE_LOADING
+  HIDE_LOADING,
+  ACTIVATE_WS,
 } from "./types";
 
 // BUILD ACTION LOGIN SAGA
@@ -67,6 +68,10 @@ export const profileFailure = (error) => ({
   type: FETCH_DATA_PROFILE_FAILURE,
   payload: error,
 });
+
 // LOADING
 export const showLoading = () => ({ type: SHOW_LOADING });
 export const hideLoading = () => ({ type: HIDE_LOADING });
+
+// ACTIVATE WS
+export const activateWS = () => ({ type: ACTIVATE_WS });

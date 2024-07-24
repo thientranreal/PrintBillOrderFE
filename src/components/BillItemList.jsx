@@ -7,10 +7,10 @@ const BillItemList = ({ data }) => {
     <Stack spacing={2} divider={<Divider flexItem />}>
       {data.map((item) => (
         <BillItem
-          key={item.id}
+          key={item.userId}
           avatarUrl={item.avatarUrl}
-          userName={item.userName}
-          billDetails={item.billDetails}
+          nickname={item.nickname}
+          message={item.message}
         />
       ))}
     </Stack>
