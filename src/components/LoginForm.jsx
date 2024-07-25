@@ -6,10 +6,11 @@ import {
   Typography,
 } from "@mui/material";
 import PasswordField from "./PasswordField";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginRequest } from "../actions";
 import { validateEmail } from "../utils/validators";
+import handleEnterKey from "../utils/handleEnterKey";
 import { LoadingButton } from "@mui/lab";
 import { Link } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
@@ -19,9 +20,13 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const isLoading = useSelector((state) => state.data.loading);
+  const { loading: isLoading } = useSelector((state) => state.data);
 
-  const handleLogin = async (e) => {
+  const inputEmailRef = useRef(null);
+  const inputPassRef = useRef(null);
+  const loginButtonRef = useRef(null);
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
     const checkErrors = {};
@@ -38,6 +43,12 @@ const LoginForm = () => {
       dispatch(loginRequest({ email, password }));
     } else {
       setErrors(checkErrors);
+
+      if (checkErrors.email) {
+        inputEmailRef.current.focus();
+      } else if (checkErrors.password) {
+        inputPassRef.current.focus();
+      }
     }
   };
 
@@ -94,7 +105,10 @@ const LoginForm = () => {
             error={!!errors.email}
             helperText={errors.email}
             fullWidth
+            autoFocus
+            inputRef={inputEmailRef}
             value={email}
+            onKeyDown={(e) => handleEnterKey(e, loginButtonRef)}
             onChange={(e) => {
               setEmail(e.target.value);
               if (errors.email) {
@@ -108,6 +122,8 @@ const LoginForm = () => {
             error={!!errors.password}
             helperText={errors.password}
             value={password}
+            inputRef={inputPassRef}
+            onKeyDown={(e) => handleEnterKey(e, loginButtonRef)}
             onChange={(e) => {
               setPassword(e.target.value);
               if (errors.password) {
@@ -120,6 +136,7 @@ const LoginForm = () => {
             startIcon={<SendIcon />}
             loadingPosition="start"
             variant="contained"
+            ref={loginButtonRef}
             onClick={handleLogin}
             loading={isLoading}
           >

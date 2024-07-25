@@ -6,14 +6,14 @@ import PropTypes from "prop-types";
 
 const BillItem = ({ avatarUrl, nickname, message }) => {
   return (
-    <Stack px={5} pb={2} direction="row" spacing={3}>
+    <Stack pb={2} direction="row" spacing={3}>
       <Avatar alt="User" src={avatarUrl} sx={{ width: 50, height: 50 }} />
       <Box>
         <Typography variant="subtitle1">{nickname}</Typography>
         <Typography variant="subtitle2" sx={{ opacity: "70%" }}>
           {message}
         </Typography>
-        <Stack direction={{ xs: "column", md: "row" }} spacing={1} mt={1}>
+        <Stack direction="row" spacing={1} mt={1}>
           <LoadingButton
             loading={false}
             loadingPosition="start"
