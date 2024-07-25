@@ -142,7 +142,7 @@ const CreateBillMan = () => {
 
   return (
     <>
-      <BillItemList data={dummyData} />
+      <BillItemList data={data} />
     </>
   );
 };
