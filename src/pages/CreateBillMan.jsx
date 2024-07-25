@@ -1,40 +1,45 @@
-import { useEffect, useRef, useState } from "react";
-import BillItemList from "../components/BillItemList";
-import { useDispatch } from "react-redux";
-import { activateWS } from "../actions";
+import React, { useEffect, useRef, useState } from "react";
+import BillItemList from "../components/BillItemList"; // Adjust the path as needed
 
 const CreateBillMan = () => {
   const [data, setData] = useState([]);
-  const dispatch = useDispatch();
   const wsRef = useRef(null);
 
   useEffect(() => {
     const initializeWebSocket = async () => {
-      // Activate WS
-      await dispatch(activateWS());
+      try {
+        // Establish WebSocket connection
+        const ws = new WebSocket("ws://localhost:3000/api/users/tiktokLive");
+        wsRef.current = ws;
 
-      // Establish WebSocket connection
-      const ws = new WebSocket("ws://localhost:8080");
-      wsRef.current = ws;
+        // Define event listeners
+        ws.onopen = () => {
+          console.log("WebSocket connection established");
+        };
 
-      // Define event listeners
-      ws.onopen = () => {
-        console.log("WebSocket connection established");
-      };
+        ws.onmessage = (event) => {
+          const newMessage = JSON.parse(event.data);
+          console.log("message", newMessage);
+          // Ensure the same message is not added multiple times
+          setData((prevData) => {
+            // Filter out duplicate messages based on content
+            const messageExists = prevData.some(item => item.message === newMessage.message && item.username === newMessage.username);
+            return messageExists ? prevData : [...prevData, newMessage];
+          });
+        };
 
-      ws.onmessage = (event) => {
-        const newMessage = JSON.parse(event.data);
-        setData((prevData) => [...prevData, newMessage]);
-      };
 
-      ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
 
-      ws.onclose = () => {
-        console.log("WebSocket connection closed");
-      };
-      return ws;
+        ws.onerror = (error) => {
+          console.error("WebSocket error:", error);
+        };
+
+        ws.onclose = () => {
+          console.log("WebSocket connection closed");
+        };
+      } catch (error) {
+        console.error("Failed to initialize WebSocket:", error);
+      }
     };
 
     initializeWebSocket();
@@ -45,7 +50,7 @@ const CreateBillMan = () => {
         wsRef.current.close();
       }
     };
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
