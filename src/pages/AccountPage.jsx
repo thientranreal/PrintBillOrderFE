@@ -2,6 +2,8 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Tab } from "@mui/material";
 import { useState } from "react";
 import AccountInfo from "../components/AccountInfo";
+import PassUpdate from "../components/PassUpdate";
+import BankAccount from "../components/BankAccount";
 
 const AccountPage = () => {
   const [value, setValue] = useState("1");
@@ -28,8 +30,12 @@ const AccountPage = () => {
         <TabPanel value="1">
           <AccountInfo />
         </TabPanel>
-        <TabPanel value="2">Item Two</TabPanel>
-        <TabPanel value="3">Item Three</TabPanel>
+        <TabPanel value="2">
+          <PassUpdate />
+        </TabPanel>
+        <TabPanel value="3">
+          <BankAccount />
+        </TabPanel>
       </TabContext>
     </>
   );
