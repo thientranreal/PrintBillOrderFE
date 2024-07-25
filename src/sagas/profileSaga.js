@@ -22,6 +22,7 @@ function* profileSaga() {
     }
   } catch (error) {
     yield put(profileFailure(error.message));
+    toast.error(error.message); // Show error toast
   }
 }
 

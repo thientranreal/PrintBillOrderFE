@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import BillItemList from "../components/BillItemList"; // Adjust the path as needed
+import { useEffect, useRef, useState } from "react";
+import BillItemList from "../components/BillItemList";
 
 const CreateBillMan = () => {
   const [data, setData] = useState([]);
@@ -23,12 +23,14 @@ const CreateBillMan = () => {
           // Ensure the same message is not added multiple times
           setData((prevData) => {
             // Filter out duplicate messages based on content
-            const messageExists = prevData.some(item => item.message === newMessage.message && item.username === newMessage.username);
+            const messageExists = prevData.some(
+              (item) =>
+                item.message === newMessage.message &&
+                item.username === newMessage.username
+            );
             return messageExists ? prevData : [...prevData, newMessage];
           });
         };
-
-
 
         ws.onerror = (error) => {
           console.error("WebSocket error:", error);

@@ -35,8 +35,9 @@ export const loginFailure = (error) => ({
 export const logoutRequest = () => ({
   type: FETCH_DATA_LOGOUT_REQUEST,
 });
-export const logoutSuccess = () => ({
+export const logoutSuccess = (data) => ({
   type: FETCH_DATA_LOGOUT_SUCCESS,
+  payload: data,
 });
 export const logoutFailure = (error) => ({
   type: FETCH_DATA_LOGOUT_FAILURE,

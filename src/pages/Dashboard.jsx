@@ -12,19 +12,26 @@ import AccountPage from "./AccountPage";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  // Thay đổi 'profile' nếu cần
+  const { data, loading } = useSelector((state) => state.data);
+  const [email, setEmail] = useState("");
+
   useEffect(() => {
     dispatch(profileRequest());
   }, [dispatch]);
-  const profile = useSelector((state) => state.data);
-  const loading = useSelector((state) => state.data.loading);
+
+  // Update email state whenever data changes
+  useEffect(() => {
+    if (data.data && data.data.length > 0 && data.data[0].user) {
+      setEmail(data.data[0].user.email);
+    }
+  }, [data]);
 
   if (loading === true) {
     return <LinearIndeterminate />;
   } else {
     return (
       <Box>
-        <Navbar />
+        <Navbar email={email} />
         <Box display="flex">
           {/* Side bar */}
           <Paper

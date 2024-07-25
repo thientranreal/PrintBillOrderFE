@@ -10,8 +10,10 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Drawer from "@mui/material/Drawer";
 import Sidebar from "./Sidebar";
 import { useState } from "react";
+import PropTypes from "prop-types";
+import { Stack } from "@mui/material";
 
-function Navbar() {
+function Navbar({ email }) {
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -92,14 +94,20 @@ function Navbar() {
             LOGO
           </Typography>
 
-          <Box>
+          <Stack py={1}>
             <IconButton sx={{ p: 0 }}>
               <Avatar alt="Avatar" src="Avatar" />
             </IconButton>
-          </Box>
+            <Typography variant="subtitle2">{email}</Typography>
+          </Stack>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
+Navbar.propTypes = {
+  email: PropTypes.string,
+};
+
 export default Navbar;

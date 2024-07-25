@@ -8,22 +8,32 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import handleEnterKey from "../utils/handleEnterKey";
 import { LoadingButton } from "@mui/lab";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
+import { useSelector } from "react-redux";
 
 const AccountInfo = () => {
+  const { data, loading } = useSelector((state) => state.data);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [tiktokUserName, setTiktokUserName] = useState("");
 
   const saveBtnRef = useRef(null);
 
   const handleSaveBtn = () => {
     console.log("Hello");
   };
+
+  useEffect(() => {
+    if (data.data && data.data.length > 0 && data.data[0].user) {
+      setEmail(data.data[0].user.email);
+      setPhone(data.data[0].user.phone);
+    }
+  }, [data]);
 
   return (
     <Box>
@@ -54,7 +64,6 @@ const AccountInfo = () => {
             label="Email"
             variant="standard"
             fullWidth
-            required
             value={email}
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
@@ -66,11 +75,21 @@ const AccountInfo = () => {
             label="Số điện thoại"
             variant="standard"
             fullWidth
-            required
             value={phone}
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
               setPhone(e.target.value);
+            }}
+          />
+          <TextField
+            id="tiktokUserName"
+            label="Tiktok username"
+            variant="standard"
+            fullWidth
+            value={tiktokUserName}
+            onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
+            onChange={(e) => {
+              setTiktokUserName(e.target.value);
             }}
           />
         </Stack>
@@ -80,7 +99,7 @@ const AccountInfo = () => {
             Xóa
           </Button>
           <LoadingButton
-            loading={false}
+            loading={loading}
             loadingPosition="start"
             startIcon={<SaveIcon />}
             variant="contained"

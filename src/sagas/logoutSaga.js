@@ -10,7 +10,7 @@ function* logoutSaga() {
     yield call(axiosInstance.get, "/users/logout");
     localStorage.removeItem("token");
     // Dispatch success action
-    yield put(logoutSuccess());
+    yield put(logoutSuccess([]));
 
     // Redirect to the login page
     history.push("/login");
