@@ -11,7 +11,16 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
-const PasswordField = ({ id, label, value, onChange, error, helperText }) => {
+const PasswordField = ({
+  id,
+  label,
+  value,
+  onChange,
+  error,
+  helperText,
+  inputRef,
+  onKeyDown,
+}) => {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -27,6 +36,8 @@ const PasswordField = ({ id, label, value, onChange, error, helperText }) => {
         type={showPassword ? "text" : "password"}
         value={value}
         onChange={onChange}
+        inputRef={inputRef}
+        onKeyDown={onKeyDown}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
@@ -51,6 +62,8 @@ PasswordField.propTypes = {
   onChange: PropTypes.func,
   error: PropTypes.bool,
   helperText: PropTypes.string,
+  inputRef: PropTypes.object,
+  onKeyDown: PropTypes.func,
 };
 
 export default PasswordField;

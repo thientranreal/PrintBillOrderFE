@@ -47,9 +47,102 @@ const CreateBillMan = () => {
     };
   }, [dispatch]);
 
+  const dummyData = [
+    {
+      userId: 1,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 2,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 3,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 4,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 5,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 6,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 7,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 8,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 9,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 10,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 11,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 12,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 13,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 14,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+    {
+      userId: 15,
+      avatarUrl: "ffff",
+      nickname: "fkowkfpowe",
+      message: "info info info",
+    },
+  ];
+
   return (
     <>
-      <BillItemList data={data} />
+      <BillItemList data={dummyData} />
     </>
   );
 };

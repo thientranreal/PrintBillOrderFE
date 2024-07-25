@@ -8,6 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import CreateBillMan from "./CreateBillMan";
 import { useEffect, useState } from "react";
 import LinearIndeterminate from "../components/Loading";
+import AccountPage from "./AccountPage";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -38,9 +39,14 @@ const Dashboard = () => {
           </Paper>
           {/* End side bar */}
 
-          <Box flexGrow={1} pt={5}>
+          <Box
+            flexGrow={1}
+            p={5}
+            sx={{ maxHeight: "100vh", overflowY: "auto" }}
+          >
             <Routes>
               <Route path="/manualBill" element={<CreateBillMan />} />
+              <Route path="/account" element={<AccountPage />} />
             </Routes>
           </Box>
         </Box>
