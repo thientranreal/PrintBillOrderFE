@@ -6,14 +6,11 @@ import {
   FETCH_DATA_LOGOUT_REQUEST,
   FETCH_DATA_LOGOUT_SUCCESS,
   FETCH_DATA_LOGOUT_FAILURE,
-  FETCH_DATA_PROFILE_SUCCESS,
-  FETCH_DATA_PROFILE_REQUEST,
-  FETCH_DATA_PROFILE_FAILURE,
   FETCH_DATA_REGISTER_SUCCESS,
   FETCH_DATA_REGISTER_FAILURE,
   FETCH_DATA_REGISTER_REQUEST,
   SHOW_LOADING,
-  HIDE_LOADING
+  HIDE_LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -31,7 +28,6 @@ const dataReducer = (state = initialState, action) => {
       return { ...state, loading: false };
     case FETCH_DATA_LOGIN_REQUEST:
     case FETCH_DATA_LOGOUT_REQUEST:
-    case FETCH_DATA_PROFILE_REQUEST:
     case FETCH_DATA_REGISTER_REQUEST:
       return {
         ...state,
@@ -39,7 +35,6 @@ const dataReducer = (state = initialState, action) => {
       };
     case FETCH_DATA_LOGIN_SUCCESS:
     case FETCH_DATA_LOGOUT_SUCCESS:
-    case FETCH_DATA_PROFILE_SUCCESS:
     case FETCH_DATA_REGISTER_SUCCESS:
       return {
         loading: false,
@@ -48,7 +43,6 @@ const dataReducer = (state = initialState, action) => {
       };
     case FETCH_DATA_LOGIN_FAILURE:
     case FETCH_DATA_LOGOUT_FAILURE:
-    case FETCH_DATA_PROFILE_FAILURE:
     case FETCH_DATA_REGISTER_FAILURE:
       return {
         loading: false,

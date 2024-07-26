@@ -14,7 +14,9 @@ import {
   FETCH_DATA_REGISTER_REQUEST,
   SHOW_LOADING,
   HIDE_LOADING,
-  ACTIVATE_WS,
+  UPDATE_PROFILE_REQUEST,
+  UPDATE_PROFILE_SUCCESS,
+  UPDATE_PROFILE_FAILURE,
 } from "./types";
 
 // BUILD ACTION LOGIN SAGA
@@ -70,9 +72,20 @@ export const profileFailure = (error) => ({
   payload: error,
 });
 
+// UPDATE PROFILE
+export const updateProfileRequest = (updateData) => ({
+  type: UPDATE_PROFILE_REQUEST,
+  payload: updateData,
+});
+export const updateProfileSuccess = (data) => ({
+  type: UPDATE_PROFILE_SUCCESS,
+  payload: data,
+});
+export const updateProfileFailure = (error) => ({
+  type: UPDATE_PROFILE_FAILURE,
+  payload: error,
+});
+
 // LOADING
 export const showLoading = () => ({ type: SHOW_LOADING });
 export const hideLoading = () => ({ type: HIDE_LOADING });
-
-// ACTIVATE WS
-export const activateWS = () => ({ type: ACTIVATE_WS });

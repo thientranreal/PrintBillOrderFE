@@ -13,25 +13,64 @@ import handleEnterKey from "../utils/handleEnterKey";
 import { LoadingButton } from "@mui/lab";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { validateEmail, validatePhoneNumber } from "../utils/validators";
+import { updateProfileRequest } from "../actions";
 
 const AccountInfo = () => {
-  const { data, loading } = useSelector((state) => state.data);
-  const [username, setUsername] = useState("");
+  const dispatch = useDispatch();
+  const { data, loading } = useSelector((state) => state.profile);
+  // const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [tiktokUserName, setTiktokUserName] = useState("");
+  const [tiktokUsername, setTiktokUsername] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const inputTUNRef = useRef(null);
+  const inputEmailRef = useRef(null);
+  const inputPhoneRef = useRef(null);
 
   const saveBtnRef = useRef(null);
 
   const handleSaveBtn = () => {
-    console.log("Hello");
+    const checkErrors = {};
+
+    if (!tiktokUsername) {
+      checkErrors.tiktokUsername = "Vui lòng nhập tiktok username";
+    }
+    if (!email) {
+      checkErrors.email = "Vui lòng nhập email";
+    } else if (!validateEmail(email)) {
+      checkErrors.email = "Email không hợp lệ";
+    }
+    if (!validatePhoneNumber(phone)) {
+      checkErrors.phone = "Số điện thoại không hợp lệ";
+    }
+
+    if (Object.keys(checkErrors).length === 0) {
+      // FETCH API
+      const info = { tiktokUsername, email, phone };
+      dispatch(updateProfileRequest(info));
+    } else {
+      setErrors(checkErrors);
+
+      if (checkErrors.tiktokUsername) {
+        inputTUNRef.current.focus();
+      } else if (checkErrors.email) {
+        inputEmailRef.current.focus();
+      } else if (checkErrors.password) {
+        inputPhoneRef.current.focus();
+      }
+    }
   };
 
   useEffect(() => {
+    console.log(data);
+
     if (data.data && data.data.length > 0 && data.data[0].user) {
-      setEmail(data.data[0].user.email);
-      setPhone(data.data[0].user.phone);
+      setEmail(data.data[0].user.email || "");
+      setPhone(data.data[0].user.phone || "");
+      setTiktokUsername(data.data[0].user.tiktokUsername || "");
     }
   }, [data]);
 
@@ -48,6 +87,20 @@ const AccountInfo = () => {
             sx={{ width: 100, height: 100 }}
           />
           <TextField
+            id="tiktokUsername"
+            label="Tiktok username"
+            variant="standard"
+            error={!!errors.tiktokUsername}
+            helperText={errors.tiktokUsername}
+            fullWidth
+            inputRef={inputTUNRef}
+            value={tiktokUsername}
+            onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
+            onChange={(e) => {
+              setTiktokUsername(e.target.value);
+            }}
+          />
+          {/* <TextField
             id="username"
             label="Tên người dùng"
             variant="standard"
@@ -58,12 +111,15 @@ const AccountInfo = () => {
             onChange={(e) => {
               setUsername(e.target.value);
             }}
-          />
+          /> */}
           <TextField
             id="email"
             label="Email"
             variant="standard"
             fullWidth
+            inputRef={inputEmailRef}
+            error={!!errors.email}
+            helperText={errors.email}
             value={email}
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
@@ -75,21 +131,13 @@ const AccountInfo = () => {
             label="Số điện thoại"
             variant="standard"
             fullWidth
+            inputRef={inputPhoneRef}
+            error={!!errors.phone}
+            helperText={errors.phone}
             value={phone}
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
               setPhone(e.target.value);
-            }}
-          />
-          <TextField
-            id="tiktokUserName"
-            label="Tiktok username"
-            variant="standard"
-            fullWidth
-            value={tiktokUserName}
-            onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
-            onChange={(e) => {
-              setTiktokUserName(e.target.value);
             }}
           />
         </Stack>

@@ -16,6 +16,7 @@ const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [tiktokUsername, setTiktokUsername] = useState("");
   // End State
 
   const registerBtnRef = useRef(null);
@@ -24,6 +25,7 @@ const RegisterForm = () => {
   const inputEmailRef = useRef(null);
   const inputPassRef = useRef(null);
   const inputConfirmedPassRef = useRef(null);
+  const inputTUNRef = useRef(null);
 
   const dispatch = useDispatch();
   const { loading: isLoading } = useSelector((state) => state.data);
@@ -32,6 +34,11 @@ const RegisterForm = () => {
     e.preventDefault();
 
     const checkErrors = {};
+
+    if (!tiktokUsername) {
+      checkErrors.tiktokUsername = "Vui lòng nhập tiktok username";
+    }
+
     if (!shopName) {
       checkErrors.shopName = "Vui lòng nhập tên shop";
     }
@@ -55,12 +62,21 @@ const RegisterForm = () => {
     }
 
     if (Object.keys(checkErrors).length === 0) {
-      const info = { shopName, phone, email, password, confirmedPassword };
+      const info = {
+        tiktokUsername,
+        shopName,
+        phone,
+        email,
+        password,
+        confirmedPassword,
+      };
       dispatch(registerRequest(info));
     } else {
       setErrors(checkErrors);
 
-      if (checkErrors.shopName) {
+      if (checkErrors.tiktokUsername) {
+        inputTUNRef.current.focus();
+      } else if (checkErrors.shopName) {
         inputShopNameRef.current.focus();
       } else if (checkErrors.phone) {
         inputPhoneRef.current.focus();
@@ -84,6 +100,27 @@ const RegisterForm = () => {
         Đăng ký thành viên
       </Typography>
 
+      {/* Tiktok username input */}
+      <TextField
+        id="tiktok-username"
+        label="Tiktok username"
+        variant="standard"
+        error={!!errors.tiktokUsername}
+        helperText={errors.tiktokUsername}
+        fullWidth
+        autoFocus
+        inputRef={inputTUNRef}
+        value={tiktokUsername}
+        onKeyDown={(e) => handleEnterKey(e, registerBtnRef)}
+        onChange={(e) => {
+          setTiktokUsername(e.target.value);
+          if (errors.tiktokUserName) {
+            setErrors({ ...errors, tiktokUsername: "" });
+          }
+        }}
+      />
+      {/* End Tiktok username input */}
+
       {/* Shop name input */}
       <TextField
         id="shop-name"
@@ -92,7 +129,6 @@ const RegisterForm = () => {
         error={!!errors.shopName}
         helperText={errors.shopName}
         fullWidth
-        autoFocus
         inputRef={inputShopNameRef}
         value={shopName}
         onKeyDown={(e) => handleEnterKey(e, registerBtnRef)}

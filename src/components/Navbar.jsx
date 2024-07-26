@@ -9,16 +9,26 @@ import Avatar from "@mui/material/Avatar";
 import AdbIcon from "@mui/icons-material/Adb";
 import Drawer from "@mui/material/Drawer";
 import Sidebar from "./Sidebar";
-import { useState } from "react";
-import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { Stack } from "@mui/material";
+import { useSelector } from "react-redux";
 
-function Navbar({ email }) {
+function Navbar() {
+  const [email, setEmail] = useState("");
   const [openSidebar, setOpenSidebar] = useState(false);
+  const { data } = useSelector((state) => state.profile);
 
   const toggleDrawer = (newOpen) => () => {
     setOpenSidebar(newOpen);
   };
+
+  // Update email state whenever data changes
+  useEffect(() => {
+    if (data.data && data.data.length > 0 && data.data[0].user) {
+      setEmail(data.data[0].user.email);
+    }
+  }, [data]);
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -105,9 +115,5 @@ function Navbar({ email }) {
     </AppBar>
   );
 }
-
-Navbar.propTypes = {
-  email: PropTypes.string,
-};
 
 export default Navbar;
