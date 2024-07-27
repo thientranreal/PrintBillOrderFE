@@ -8,6 +8,7 @@ import {
 import {
   profileFailure,
   profileSuccess,
+  profileRequest,
   updateProfileFailure,
   updateProfileSuccess,
 } from "../actions";
@@ -53,6 +54,7 @@ function* updateProfileSaga(action) {
     } else {
       console.log(response.data);
       yield put(updateProfileSuccess(response.data));
+      yield put(profileRequest())
       toast.success(response.data.message);
     }
   } catch (error) {

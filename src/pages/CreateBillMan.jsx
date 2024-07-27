@@ -9,7 +9,7 @@ const CreateBillMan = () => {
     const initializeWebSocket = async () => {
       try {
         // Establish WebSocket connection
-        const ws = new WebSocket("ws://localhost:3000/api/users/tiktokLive");
+        const ws = new WebSocket(`ws://localhost:3000/api/users/tiktokLive?token=${localStorage.getItem('token')}`);
         wsRef.current = ws;
 
         // Define event listeners
