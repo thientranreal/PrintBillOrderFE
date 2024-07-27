@@ -20,7 +20,7 @@ import { updateProfileRequest } from "../actions";
 const AccountInfo = () => {
   const dispatch = useDispatch();
   const { data, loading } = useSelector((state) => state.profile);
-  // const [username, setUsername] = useState("");
+  const [shopName, setShopName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [tiktokUsername, setTiktokUsername] = useState("");
@@ -29,6 +29,7 @@ const AccountInfo = () => {
   const inputTUNRef = useRef(null);
   const inputEmailRef = useRef(null);
   const inputPhoneRef = useRef(null);
+  const inputShopNameRef = useRef(null);
 
   const saveBtnRef = useRef(null);
 
@@ -37,6 +38,9 @@ const AccountInfo = () => {
 
     if (!tiktokUsername) {
       checkErrors.tiktokUsername = "Vui lòng nhập tiktok username";
+    }
+    if (!shopName) {
+      checkErrors.shopName = "Vui lòng nhập tên shop";
     }
     if (!email) {
       checkErrors.email = "Vui lòng nhập email";
@@ -49,13 +53,15 @@ const AccountInfo = () => {
 
     if (Object.keys(checkErrors).length === 0) {
       // FETCH API
-      const info = { tiktokUsername, email, phone };
+      const info = { tiktokUsername, email, phone, shopName };
       dispatch(updateProfileRequest(info));
     } else {
       setErrors(checkErrors);
 
       if (checkErrors.tiktokUsername) {
         inputTUNRef.current.focus();
+      } else if (checkErrors.shopName) {
+        inputShopNameRef.current.focus();
       } else if (checkErrors.email) {
         inputEmailRef.current.focus();
       } else if (checkErrors.password) {
@@ -65,12 +71,11 @@ const AccountInfo = () => {
   };
 
   useEffect(() => {
-    console.log(data);
-
     if (data.data && data.data.length > 0 && data.data[0].user) {
       setEmail(data.data[0].user.email || "");
       setPhone(data.data[0].user.phone || "");
       setTiktokUsername(data.data[0].user.tiktokUsername || "");
+      setShopName(data.data[0].user.shopName || "");
     }
   }, [data]);
 
@@ -93,25 +98,34 @@ const AccountInfo = () => {
             error={!!errors.tiktokUsername}
             helperText={errors.tiktokUsername}
             fullWidth
+            autoFocus
             inputRef={inputTUNRef}
             value={tiktokUsername}
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
               setTiktokUsername(e.target.value);
+              if (errors.tiktokUsername) {
+                setErrors({ ...errors, tiktokUsername: "" });
+              }
             }}
           />
-          {/* <TextField
-            id="username"
-            label="Tên người dùng"
+          <TextField
+            id="shopName"
+            label="Tên shop"
             variant="standard"
             fullWidth
-            autoFocus
-            value={username}
+            error={!!errors.shopName}
+            helperText={errors.shopName}
+            inputRef={inputShopNameRef}
+            value={shopName}
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
-              setUsername(e.target.value);
+              setShopName(e.target.value);
+              if (errors.shopName) {
+                setErrors({ ...errors, shopName: "" });
+              }
             }}
-          /> */}
+          />
           <TextField
             id="email"
             label="Email"
@@ -124,6 +138,9 @@ const AccountInfo = () => {
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
               setEmail(e.target.value);
+              if (errors.email) {
+                setErrors({ ...errors, email: "" });
+              }
             }}
           />
           <TextField
@@ -138,6 +155,9 @@ const AccountInfo = () => {
             onKeyDown={(e) => handleEnterKey(e, saveBtnRef)}
             onChange={(e) => {
               setPhone(e.target.value);
+              if (errors.phone) {
+                setErrors({ ...errors, phone: "" });
+              }
             }}
           />
         </Stack>

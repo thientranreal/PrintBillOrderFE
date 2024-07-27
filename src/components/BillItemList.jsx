@@ -5,9 +5,9 @@ import { Divider, Stack } from "@mui/material";
 const BillItemList = ({ data }) => {
   return (
     <Stack spacing={2} divider={<Divider flexItem />}>
-      {data.map((item) => (
+      {data.map((item, index) => (
         <BillItem
-          key={item.userId}
+          key={index}
           avatarUrl={item.avatarUrl}
           nickname={item.nickname}
           message={item.message}
